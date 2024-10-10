@@ -1,6 +1,7 @@
 package com.thaleszz.challenge_contabilizei.model.invoice;
 
 import com.thaleszz.challenge_contabilizei.model.client.ClientModel;
+import com.thaleszz.challenge_contabilizei.model.enums.Attachment;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -29,7 +30,7 @@ public class InvoiceModel implements Serializable {
 
     @Column
     @Enumerated(EnumType.ORDINAL)
-    private String attachment;
+    private Attachment attachment;
 
     @CreationTimestamp
     @Column(nullable = false, updatable = false)
