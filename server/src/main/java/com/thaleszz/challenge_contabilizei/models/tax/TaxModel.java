@@ -22,7 +22,7 @@ public class TaxModel implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
     @Column(nullable = false)
@@ -41,7 +41,7 @@ public class TaxModel implements Serializable {
     @Column(nullable = false)
     private boolean paid;
 
-    @ManyToOne
-    @JoinColumn(name = "client_id", nullable = false)
-    private ClientModel client;
+//    @ManyToOne
+//    @JoinColumn(name = "client_id")
+//    private ClientModel client;
 }

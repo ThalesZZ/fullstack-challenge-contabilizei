@@ -22,7 +22,7 @@ public class InvoiceModel implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
     @Column(unique = true, nullable = false)
@@ -42,7 +42,7 @@ public class InvoiceModel implements Serializable {
     @Column(nullable = false)
     private BigDecimal value;
 
-    @ManyToOne
-    @JoinColumn(name = "client_id")
-    private ClientModel client;
+//    @ManyToOne
+//    @JoinColumn(name = "client_id")
+//    private ClientModel client;
 }
