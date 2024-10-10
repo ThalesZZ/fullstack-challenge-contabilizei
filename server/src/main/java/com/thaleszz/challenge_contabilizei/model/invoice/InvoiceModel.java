@@ -29,7 +29,7 @@ public class InvoiceModel {
     @Column
     private String description; // TODO check if its an enum according to challenge
 
-    @Column
+    @Column(nullable = false)
     private BigDecimal value;
 
     @ManyToOne

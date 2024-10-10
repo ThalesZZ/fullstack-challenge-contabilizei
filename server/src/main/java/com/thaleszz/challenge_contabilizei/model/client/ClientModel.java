@@ -1,6 +1,7 @@
 package com.thaleszz.challenge_contabilizei.model.client;
 
 import com.thaleszz.challenge_contabilizei.model.invoice.InvoiceModel;
+import com.thaleszz.challenge_contabilizei.model.tax.TaxModel;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -32,6 +33,9 @@ public class ClientModel {
 
     @OneToMany(mappedBy = "client", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<InvoiceModel> invoices;
+
+    @OneToMany(mappedBy = "client", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<TaxModel> taxes;
 
     // @Column
     // TODO private String attachments;
