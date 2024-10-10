@@ -1,9 +1,9 @@
-package com.thaleszz.challenge_contabilizei.model.client;
+package com.thaleszz.challenge_contabilizei.models.client;
 
-import com.thaleszz.challenge_contabilizei.model.enums.Attachment;
-import com.thaleszz.challenge_contabilizei.model.enums.TaxRegime;
-import com.thaleszz.challenge_contabilizei.model.invoice.InvoiceModel;
-import com.thaleszz.challenge_contabilizei.model.tax.TaxModel;
+import com.thaleszz.challenge_contabilizei.models.enums.Attachment;
+import com.thaleszz.challenge_contabilizei.models.enums.TaxRegime;
+import com.thaleszz.challenge_contabilizei.models.invoice.InvoiceModel;
+import com.thaleszz.challenge_contabilizei.models.tax.TaxModel;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
