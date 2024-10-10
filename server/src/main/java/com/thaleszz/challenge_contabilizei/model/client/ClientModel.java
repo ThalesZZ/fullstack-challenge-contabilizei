@@ -26,4 +26,7 @@ public class ClientModel {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private TaxRegime regime;
+
+    // @Column
+    // TODO private String attachments;
 }
