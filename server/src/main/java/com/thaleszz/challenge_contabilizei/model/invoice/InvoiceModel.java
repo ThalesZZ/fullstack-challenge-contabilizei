@@ -1,5 +1,6 @@
 package com.thaleszz.challenge_contabilizei.model.invoice;
 
+import com.thaleszz.challenge_contabilizei.model.client.ClientModel;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -30,4 +31,8 @@ public class InvoiceModel {
 
     @Column
     private BigDecimal value;
+
+    @ManyToOne
+    @JoinColumn(name = "client_id")
+    private ClientModel client;
 }
