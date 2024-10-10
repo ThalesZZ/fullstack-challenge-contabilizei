@@ -1,10 +1,13 @@
 package com.thaleszz.challenge_contabilizei.model.tax;
 
 import com.thaleszz.challenge_contabilizei.model.client.ClientModel;
+import com.thaleszz.challenge_contabilizei.model.enums.TaxType;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -14,7 +17,10 @@ import java.util.UUID;
 @Table(name = "TB_TAX")
 @Getter
 @Setter
-public class TaxModel {
+public class TaxModel implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;

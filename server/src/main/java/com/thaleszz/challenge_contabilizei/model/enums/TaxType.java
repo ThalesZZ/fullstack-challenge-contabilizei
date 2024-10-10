@@ -1,4 +1,4 @@
-package com.thaleszz.challenge_contabilizei.model.tax;
+package com.thaleszz.challenge_contabilizei.model.enums;
 
 public enum TaxType {
     SIMPLES_NACIONAL,

@@ -1,4 +1,4 @@
-package com.thaleszz.challenge_contabilizei.model.client;
+package com.thaleszz.challenge_contabilizei.model.enums;
 
 public enum TaxRegime {
     SIMPLES_NACIONAL,
