@@ -1,7 +1,5 @@
 package com.thaleszz.challenge_contabilizei.models.tax;
 
-import com.thaleszz.challenge_contabilizei.models.client.ClientModel;
-import com.thaleszz.challenge_contabilizei.models.enums.TaxType;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

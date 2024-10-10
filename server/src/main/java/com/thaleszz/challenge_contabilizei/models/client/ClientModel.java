@@ -1,7 +1,5 @@
 package com.thaleszz.challenge_contabilizei.models.client;
 
-import com.thaleszz.challenge_contabilizei.models.enums.Attachment;
-import com.thaleszz.challenge_contabilizei.models.enums.TaxRegime;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -36,10 +34,6 @@ public class ClientModel implements Serializable {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private TaxRegime regime;
-
-    @Column
-    @Enumerated(EnumType.ORDINAL)
-    private Attachment attachment; // only for "Simples Nacional" regime, null for "Lucro Presumido" regime
 
 //    @OneToMany(mappedBy = "client", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 //    private List<InvoiceModel> invoices;
