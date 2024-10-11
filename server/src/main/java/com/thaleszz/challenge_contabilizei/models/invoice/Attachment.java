@@ -6,11 +6,11 @@ import java.math.BigDecimal;
 
 @AllArgsConstructor
 public enum Attachment {
-    COMERCIO(.06),
-    INDUSTRIA(.085),
-    SERVICOS(.11);
+    COMERCIO("0.06"),
+    INDUSTRIA("0.085"),
+    SERVICOS("0.11");
 
-    private final double aliquot;
+    private final String aliquot;
 
     public BigDecimal aliquot() {
         return new BigDecimal(this.aliquot);
