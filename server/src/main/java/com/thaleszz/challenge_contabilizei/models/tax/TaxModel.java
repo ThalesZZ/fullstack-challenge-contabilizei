@@ -19,6 +19,8 @@ import java.util.UUID;
 @Table(name = "TB_TAX")
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class TaxModel implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;

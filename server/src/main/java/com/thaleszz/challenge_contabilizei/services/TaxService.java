@@ -2,16 +2,17 @@ package com.thaleszz.challenge_contabilizei.services;
 
 import com.thaleszz.challenge_contabilizei.business.TaxCalculationStrategy;
 import com.thaleszz.challenge_contabilizei.models.client.ClientModel;
-import com.thaleszz.challenge_contabilizei.models.client.TaxRegime;
 import com.thaleszz.challenge_contabilizei.models.invoice.InvoiceModel;
 import com.thaleszz.challenge_contabilizei.models.tax.TaxModel;
 import com.thaleszz.challenge_contabilizei.models.tax.TaxType;
+import com.thaleszz.challenge_contabilizei.repositories.TaxRepository;
 import jakarta.persistence.EntityExistsException;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.time.YearMonth;
 import java.util.List;
 import java.util.Map;
@@ -22,10 +23,10 @@ import java.util.UUID;
 public class TaxService {
 
     private final ClientService clientService;
+    private final TaxRepository repository;
 
-    public void requestCalculation(UUID clientId, YearMonth referenceDate) {
+    public List<TaxModel> requestCalculation(@NotNull UUID clientId, @NotNull YearMonth referenceDate) {
         ClientModel client = this.clientService.get(clientId).orElseThrow(EntityExistsException::new);
-        TaxRegime regime = client.getRegime();
 
         List<InvoiceModel> filteredInvoices = client
                 .getInvoices().stream()
@@ -34,11 +35,30 @@ public class TaxService {
                 .toList();
 
         TaxCalculationStrategy taxCalculator = client.getRegime().calculator();
-        Map<TaxType, BigDecimal> taxes = taxCalculator.calculate(filteredInvoices);
+        Map<TaxType, BigDecimal> taxesByType = taxCalculator.calculate(filteredInvoices);
+
+        List<TaxModel> taxes = taxesByType
+                .entrySet()
+                .stream()
+                .map(entry ->
+                        new TaxModel(
+                                null,
+                                entry.getKey(),
+                                this.getDueDate(referenceDate),
+                                referenceDate,
+                                entry.getValue(),
+                                false
+                        ))
+                .toList();
+
+        return this.repository.saveAll(taxes);
     }
 
-    @Transactional
-    private List<TaxModel> registerTaxes() {
-        return null;
+    private LocalDateTime getDueDate(YearMonth referenceDate) {
+        return referenceDate
+                .plusMonths(1)
+                .atEndOfMonth()
+                .atTime(23, 59, 59);
     }
+
 }
