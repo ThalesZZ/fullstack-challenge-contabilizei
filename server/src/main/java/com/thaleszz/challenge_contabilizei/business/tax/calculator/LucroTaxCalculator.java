@@ -1,4 +1,4 @@
-package com.thaleszz.challenge_contabilizei.business;
+package com.thaleszz.challenge_contabilizei.business.tax.calculator;
 
 import com.thaleszz.challenge_contabilizei.models.invoice.InvoiceModel;
 import com.thaleszz.challenge_contabilizei.models.tax.TaxType;

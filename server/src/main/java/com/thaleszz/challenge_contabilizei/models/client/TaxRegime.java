@@ -1,8 +1,8 @@
 package com.thaleszz.challenge_contabilizei.models.client;
 
-import com.thaleszz.challenge_contabilizei.business.LucroTaxCalculator;
-import com.thaleszz.challenge_contabilizei.business.SimplesTaxCalculator;
-import com.thaleszz.challenge_contabilizei.business.TaxCalculationStrategy;
+import com.thaleszz.challenge_contabilizei.business.tax.calculator.LucroTaxCalculator;
+import com.thaleszz.challenge_contabilizei.business.tax.calculator.SimplesTaxCalculator;
+import com.thaleszz.challenge_contabilizei.business.tax.calculator.TaxCalculationStrategy;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor

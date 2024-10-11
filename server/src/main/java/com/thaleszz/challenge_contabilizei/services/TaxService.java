@@ -1,6 +1,8 @@
 package com.thaleszz.challenge_contabilizei.services;
 
-import com.thaleszz.challenge_contabilizei.business.TaxCalculationStrategy;
+import com.thaleszz.challenge_contabilizei.business.tax.calculator.TaxCalculationStrategy;
+import com.thaleszz.challenge_contabilizei.business.tax.due_date.TaxDueDateCalculator;
+import com.thaleszz.challenge_contabilizei.business.tax.due_date.TaxDueDateStrategy;
 import com.thaleszz.challenge_contabilizei.models.client.ClientModel;
 import com.thaleszz.challenge_contabilizei.models.invoice.InvoiceModel;
 import com.thaleszz.challenge_contabilizei.models.tax.TaxModel;
@@ -34,8 +36,11 @@ public class TaxService {
                         && referenceDate.getYear() == invoice.getEmissionDate().getYear())
                 .toList();
 
-        TaxCalculationStrategy taxCalculator = client.getRegime().calculator();
-        Map<TaxType, BigDecimal> taxesByType = taxCalculator.calculate(filteredInvoices);
+        TaxCalculationStrategy taxValueCalculator = client.getRegime().calculator();
+        TaxDueDateStrategy dueDateCalculator = new TaxDueDateCalculator();
+
+        Map<TaxType, BigDecimal> taxesByType = taxValueCalculator.calculate(filteredInvoices);
+        LocalDateTime dueDate = dueDateCalculator.calculate(referenceDate);
 
         List<TaxModel> taxes = taxesByType
                 .entrySet()
@@ -44,21 +49,13 @@ public class TaxService {
                         new TaxModel(
                                 null,
                                 entry.getKey(),
-                                this.getDueDate(referenceDate),
+                                dueDate,
                                 referenceDate,
                                 entry.getValue(),
-                                false
-                        ))
+                                false))
                 .toList();
 
         return this.repository.saveAll(taxes);
-    }
-
-    private LocalDateTime getDueDate(YearMonth referenceDate) {
-        return referenceDate
-                .plusMonths(1)
-                .atEndOfMonth()
-                .atTime(23, 59, 59);
     }
 
 }
