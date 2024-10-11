@@ -1,5 +1,7 @@
 package com.thaleszz.challenge_contabilizei.models.invoice;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.thaleszz.challenge_contabilizei.models.client.ClientModel;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -46,6 +48,7 @@ public class InvoiceModel implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "client_id")
+    @JsonIgnoreProperties("invoices")
     private ClientModel client;
 
     public InvoiceModel(InvoiceDTO data) {

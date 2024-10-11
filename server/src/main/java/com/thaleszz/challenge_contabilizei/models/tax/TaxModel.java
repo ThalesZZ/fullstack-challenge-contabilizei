@@ -1,14 +1,18 @@
 package com.thaleszz.challenge_contabilizei.models.tax;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Date;
+import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 import java.util.UUID;
 
 @Entity
@@ -31,7 +35,8 @@ public class TaxModel implements Serializable {
     private LocalDateTime dueDate;
 
     @Column(nullable = false)
-    private Date referenceDate;
+    @Convert(converter = YearMonthConverter.class)
+    private YearMonth referenceDate;
 
     @Column(nullable = false)
     private BigDecimal value;
@@ -42,4 +47,18 @@ public class TaxModel implements Serializable {
 //    @ManyToOne
 //    @JoinColumn(name = "client_id")
 //    private ClientModel client;
+
+    protected static class YearMonthConverter implements AttributeConverter<YearMonth, String> {
+        private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("MM/yyyy");
+
+        @Override
+        public String convertToDatabaseColumn(YearMonth attribute) {
+            return Objects.nonNull(attribute) ? attribute.format(FORMATTER) : null;
+        }
+
+        @Override
+        public YearMonth convertToEntityAttribute(String dbData) {
+            return Objects.nonNull(dbData) ? YearMonth.parse(dbData, FORMATTER) : null;
+        }
+    }
 }

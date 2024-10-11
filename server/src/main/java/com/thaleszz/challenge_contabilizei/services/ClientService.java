@@ -33,8 +33,7 @@ public class ClientService {
     }
 
     public void delete(@NotNull UUID id) {
-        ClientModel model = this.get(id).orElseThrow(EntityNotFoundException::new);
-        this.repository.delete(model);
+        this.repository.deleteById(id);
     }
 
 }

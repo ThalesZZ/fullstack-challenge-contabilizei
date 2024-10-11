@@ -1,5 +1,6 @@
 package com.thaleszz.challenge_contabilizei.models.client;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.thaleszz.challenge_contabilizei.models.invoice.InvoiceModel;
 import jakarta.persistence.*;
 import lombok.Getter;
