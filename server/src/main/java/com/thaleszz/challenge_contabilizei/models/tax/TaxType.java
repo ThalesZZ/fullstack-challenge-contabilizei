@@ -14,7 +14,7 @@ public enum TaxType {
     private final String aliquot;
 
     public BigDecimal aliquot() {
-        if(this.equals(SIMPLES_NACIONAL))
+        if (this.equals(SIMPLES_NACIONAL))
             throw new UnsupportedOperationException("Aliquots of Simples Nacional taxes are calculated by their attachments.");
         return new BigDecimal(this.aliquot);
     }

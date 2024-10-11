@@ -3,7 +3,6 @@ package com.thaleszz.challenge_contabilizei.services;
 import com.thaleszz.challenge_contabilizei.models.client.ClientDTO;
 import com.thaleszz.challenge_contabilizei.models.client.ClientModel;
 import com.thaleszz.challenge_contabilizei.repositories.ClientRepository;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
