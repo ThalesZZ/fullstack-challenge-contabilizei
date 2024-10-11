@@ -1,9 +1,12 @@
 package com.thaleszz.challenge_contabilizei.models.invoice;
 
+import com.thaleszz.challenge_contabilizei.models.client.ClientModel;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.beans.BeanUtils;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -15,6 +18,7 @@ import java.util.UUID;
 @Table(name = "TB_INVOICE")
 @Getter
 @Setter
+@NoArgsConstructor
 public class InvoiceModel implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
@@ -40,7 +44,11 @@ public class InvoiceModel implements Serializable {
     @Column(nullable = false)
     private BigDecimal value;
 
-//    @ManyToOne
-//    @JoinColumn(name = "client_id")
-//    private ClientModel client;
+    @ManyToOne
+    @JoinColumn(name = "client_id")
+    private ClientModel client;
+
+    public InvoiceModel(InvoiceDTO data) {
+        BeanUtils.copyProperties(data, this);
+    }
 }

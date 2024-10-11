@@ -1,8 +1,8 @@
 package com.thaleszz.challenge_contabilizei.controllers;
 
-import com.thaleszz.challenge_contabilizei.models.client.ClientDTO;
-import com.thaleszz.challenge_contabilizei.models.client.ClientModel;
-import com.thaleszz.challenge_contabilizei.services.ClientService;
+import com.thaleszz.challenge_contabilizei.models.invoice.InvoiceDTO;
+import com.thaleszz.challenge_contabilizei.models.invoice.InvoiceModel;
+import com.thaleszz.challenge_contabilizei.services.InvoiceService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,21 +11,21 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/client")
+@RequestMapping("/api/invoice")
 @AllArgsConstructor
-public class ClientController {
+public class InvoiceController {
 
-    private final ClientService service;
+    private final InvoiceService service;
 
     @GetMapping
-    public ResponseEntity<List<ClientModel>> list() {
-        List<ClientModel> clients = this.service.list();
+    public ResponseEntity<List<InvoiceModel>> list() {
+        List<InvoiceModel> clients = this.service.list();
         return ResponseEntity.ok(clients);
     }
 
     @PostMapping
-    public ResponseEntity<ClientModel> create(@RequestBody ClientDTO data) {
-        ClientModel client = this.service.create(data);
+    public ResponseEntity<InvoiceModel> create(@RequestBody InvoiceDTO data) {
+        InvoiceModel client = this.service.create(data);
         return ResponseEntity.ok(client);
     }
 
