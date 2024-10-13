@@ -3,6 +3,7 @@ package com.thaleszz.challenge_contabilizei.controllers;
 import com.thaleszz.challenge_contabilizei.dto.models.ClientDTO;
 import com.thaleszz.challenge_contabilizei.models.client.Client;
 import com.thaleszz.challenge_contabilizei.services.ClientService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,15 +25,16 @@ public class ClientController {
     }
 
     @PostMapping
-    public ResponseEntity<Client> create(@RequestBody ClientDTO data) {
-        Client client = this.service.create(data);
+    public ResponseEntity<Client> create(@RequestBody @Valid ClientDTO data) {
+        Client model = new Client(data);
+        Client client = this.service.create(model);
         return ResponseEntity.ok(client);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> delete(@PathVariable("id") UUID id) {
         this.service.delete(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok().build();
     }
 
 }

@@ -45,15 +45,18 @@ public class TaxService {
         List<Tax> taxes = taxesByType
                 .entrySet()
                 .stream()
-                .map(entry ->
-                        new Tax(
-                                null,
-                                entry.getKey(),
-                                dueDate,
-                                referenceDate,
-                                entry.getValue(),
-                                false,
-                                client))
+                .map(entry -> {
+                    TaxType taxType = entry.getKey();
+                    BigDecimal value = entry.getValue();
+                    return new Tax(
+                            null,
+                            taxType,
+                            dueDate,
+                            referenceDate,
+                            value,
+                            false,
+                            client);
+                })
                 .toList();
 
         return this.repository.saveAll(taxes);

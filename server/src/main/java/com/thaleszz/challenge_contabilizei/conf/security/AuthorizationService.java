@@ -14,7 +14,6 @@ public class AuthorizationService {
     private final AuthenticationManager authenticationManager;
 
     public String login(String username, String password) {
-        new TokenService();
         UsernamePasswordAuthenticationToken usernamePassword =
                 new UsernamePasswordAuthenticationToken(username, password);
         Authentication auth = this.authenticationManager.authenticate(usernamePassword);

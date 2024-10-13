@@ -1,10 +1,8 @@
 package com.thaleszz.challenge_contabilizei.services;
 
-import com.thaleszz.challenge_contabilizei.dto.models.UserDTO;
 import com.thaleszz.challenge_contabilizei.models.user.User;
 import com.thaleszz.challenge_contabilizei.repositories.UserRepository;
 import jakarta.persistence.EntityExistsException;
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -25,12 +23,12 @@ public class UserService implements UserDetailsService {
         return this.repository.findByUsername(username);
     }
 
-    public User register(@Valid UserDTO data) {
-        UserDetails existingUser = this.repository.findByUsername(data.username());
+    public User register(User model) {
+        UserDetails existingUser = this.repository.findByUsername(model.getUsername());
         if (Objects.nonNull(existingUser)) throw new EntityExistsException();
 
-        String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
-        User model = new User(new UserDTO(data.username(), encryptedPassword, data.role()));
+        String encryptedPassword = new BCryptPasswordEncoder().encode(model.getPassword());
+        model.setPassword(encryptedPassword);
 
         return this.repository.save(model);
     }

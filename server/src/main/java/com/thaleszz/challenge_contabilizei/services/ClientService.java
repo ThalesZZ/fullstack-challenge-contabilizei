@@ -1,9 +1,7 @@
 package com.thaleszz.challenge_contabilizei.services;
 
-import com.thaleszz.challenge_contabilizei.dto.models.ClientDTO;
 import com.thaleszz.challenge_contabilizei.models.client.Client;
 import com.thaleszz.challenge_contabilizei.repositories.ClientRepository;
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,8 +16,7 @@ public class ClientService {
 
     private final ClientRepository repository;
 
-    public Client create(@Valid ClientDTO data) {
-        Client model = new Client(data);
+    public Client create(@NotNull Client model) {
         return this.repository.save(model);
     }
 

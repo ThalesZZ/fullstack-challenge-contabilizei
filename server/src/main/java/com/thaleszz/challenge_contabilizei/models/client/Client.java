@@ -5,6 +5,7 @@ import com.thaleszz.challenge_contabilizei.models.invoice.Invoice;
 import com.thaleszz.challenge_contabilizei.models.tax.Tax;
 import com.thaleszz.challenge_contabilizei.models.user.User;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -48,7 +49,7 @@ public class Client implements Serializable {
     @OneToMany(mappedBy = "client", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Tax> taxes;
 
-    public Client(ClientDTO data) {
+    public Client(@Valid ClientDTO data) {
         BeanUtils.copyProperties(data, this);
     }
 }

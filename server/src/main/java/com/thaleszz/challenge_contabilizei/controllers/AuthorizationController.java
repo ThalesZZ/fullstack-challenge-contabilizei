@@ -1,11 +1,13 @@
 package com.thaleszz.challenge_contabilizei.controllers;
 
+import com.thaleszz.challenge_contabilizei.conf.security.AuthorizationService;
 import com.thaleszz.challenge_contabilizei.dto.models.UserDTO;
 import com.thaleszz.challenge_contabilizei.dto.requests.AuthenticationDTO;
 import com.thaleszz.challenge_contabilizei.dto.responses.LoginResponseDTO;
-import com.thaleszz.challenge_contabilizei.conf.security.AuthorizationService;
+import com.thaleszz.challenge_contabilizei.models.user.User;
 import com.thaleszz.challenge_contabilizei.services.UserService;
 import jakarta.persistence.EntityExistsException;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,15 +24,16 @@ public class AuthorizationController {
     private final AuthorizationService authorizationService;
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponseDTO> login(@RequestBody AuthenticationDTO data) {
+    public ResponseEntity<LoginResponseDTO> login(@RequestBody @Valid AuthenticationDTO data) {
         String token = this.authorizationService.login(data.username(), data.password());
         return ResponseEntity.ok(new LoginResponseDTO(token));
     }
 
     @PostMapping("/register")
-    public ResponseEntity<LoginResponseDTO> register(@RequestBody UserDTO data) {
+    public ResponseEntity<LoginResponseDTO> register(@RequestBody @Valid UserDTO data) {
         try {
-            this.userService.register(data);
+            User model = new User(data);
+            this.userService.register(model);
             String token = this.authorizationService.login(data.username(), data.password());
             return ResponseEntity.ok(new LoginResponseDTO(token));
         } catch (EntityExistsException e) {
