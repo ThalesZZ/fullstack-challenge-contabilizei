@@ -1,5 +1,6 @@
 package com.thaleszz.challenge_contabilizei.models.user;
 
+import com.thaleszz.challenge_contabilizei.dto.models.UserDTO;
 import com.thaleszz.challenge_contabilizei.models.client.ClientModel;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -43,7 +44,7 @@ public class UserModel implements UserDetails, Serializable {
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private ClientModel client;
 
-    public UserModel(RegisterDTO data) {
+    public UserModel(UserDTO data) {
         BeanUtils.copyProperties(data, this);
     }
 

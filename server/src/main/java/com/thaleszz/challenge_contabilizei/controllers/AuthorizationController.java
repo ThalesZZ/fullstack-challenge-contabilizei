@@ -1,9 +1,9 @@
 package com.thaleszz.challenge_contabilizei.controllers;
 
 import com.thaleszz.challenge_contabilizei.conf.security.TokenService;
-import com.thaleszz.challenge_contabilizei.models.user.AuthenticationDTO;
-import com.thaleszz.challenge_contabilizei.models.user.LoginResponseDTO;
-import com.thaleszz.challenge_contabilizei.models.user.RegisterDTO;
+import com.thaleszz.challenge_contabilizei.dto.requests.AuthenticationDTO;
+import com.thaleszz.challenge_contabilizei.dto.responses.LoginResponseDTO;
+import com.thaleszz.challenge_contabilizei.dto.models.UserDTO;
 import com.thaleszz.challenge_contabilizei.models.user.UserModel;
 import com.thaleszz.challenge_contabilizei.services.AuthorizationService;
 import jakarta.persistence.EntityExistsException;
@@ -39,7 +39,7 @@ public class AuthorizationController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Object> register(@RequestBody RegisterDTO data) {
+    public ResponseEntity<Object> register(@RequestBody UserDTO data) {
         try {
             UserModel user = this.service.register(data);
             return ResponseEntity.ok().build();

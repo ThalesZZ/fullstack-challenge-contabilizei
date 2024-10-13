@@ -1,6 +1,6 @@
 package com.thaleszz.challenge_contabilizei.controllers;
 
-import com.thaleszz.challenge_contabilizei.models.invoice.InvoiceDTO;
+import com.thaleszz.challenge_contabilizei.dto.models.InvoiceDTO;
 import com.thaleszz.challenge_contabilizei.models.invoice.InvoiceModel;
 import com.thaleszz.challenge_contabilizei.services.InvoiceService;
 import lombok.AllArgsConstructor;

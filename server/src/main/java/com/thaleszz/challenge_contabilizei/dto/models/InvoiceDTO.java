@@ -1,5 +1,6 @@
-package com.thaleszz.challenge_contabilizei.models.invoice;
+package com.thaleszz.challenge_contabilizei.dto.models;
 
+import com.thaleszz.challenge_contabilizei.models.invoice.Attachment;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;

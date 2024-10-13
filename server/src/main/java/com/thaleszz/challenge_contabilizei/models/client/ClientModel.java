@@ -1,5 +1,6 @@
 package com.thaleszz.challenge_contabilizei.models.client;
 
+import com.thaleszz.challenge_contabilizei.dto.models.ClientDTO;
 import com.thaleszz.challenge_contabilizei.models.invoice.InvoiceModel;
 import com.thaleszz.challenge_contabilizei.models.tax.TaxModel;
 import com.thaleszz.challenge_contabilizei.models.user.UserModel;

@@ -1,6 +1,7 @@
 package com.thaleszz.challenge_contabilizei.models.invoice;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.thaleszz.challenge_contabilizei.dto.models.InvoiceDTO;
 import com.thaleszz.challenge_contabilizei.models.client.ClientModel;
 import jakarta.persistence.*;
 import lombok.Getter;

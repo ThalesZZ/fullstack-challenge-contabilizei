@@ -1,4 +1,4 @@
-package com.thaleszz.challenge_contabilizei.models.user;
+package com.thaleszz.challenge_contabilizei.dto.requests;
 
 import jakarta.validation.constraints.NotBlank;
 
