@@ -1,6 +1,6 @@
 package com.thaleszz.challenge_contabilizei.conf.security;
 
-import com.thaleszz.challenge_contabilizei.services.AuthorizationService;
+import com.thaleszz.challenge_contabilizei.repositories.UserRepository;
 import jakarta.annotation.Nullable;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -21,7 +21,7 @@ import java.util.Objects;
 public class SecurityFilter extends OncePerRequestFilter {
 
     private final TokenService tokenService;
-    private final AuthorizationService authorizationService;
+    private final UserRepository userRepository;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
@@ -30,7 +30,7 @@ public class SecurityFilter extends OncePerRequestFilter {
         String token = this.recoverToken(request);
         if (Objects.nonNull(token)) {
             String username = this.tokenService.validateToken(token);
-            UserDetails user = this.authorizationService.loadUserByUsername(username);
+            UserDetails user = this.userRepository.findByUsername(username);
             UsernamePasswordAuthenticationToken authentication =
                     new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);

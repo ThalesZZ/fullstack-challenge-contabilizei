@@ -1,37 +1,24 @@
 package com.thaleszz.challenge_contabilizei.services;
 
-import com.thaleszz.challenge_contabilizei.dto.models.UserDTO;
+import com.thaleszz.challenge_contabilizei.conf.security.TokenService;
 import com.thaleszz.challenge_contabilizei.models.user.User;
-import com.thaleszz.challenge_contabilizei.repositories.UserRepository;
-import jakarta.persistence.EntityExistsException;
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
-
-import java.util.Objects;
 
 @Service
 @AllArgsConstructor
-public class AuthorizationService implements UserDetailsService {
+public class AuthorizationService {
+    private final TokenService tokenService;
+    private final AuthenticationManager authenticationManager;
 
-    private final UserRepository repository;
-
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return this.repository.findByUsername(username);
+    public String login(String username, String password) {
+        UsernamePasswordAuthenticationToken usernamePassword =
+                new UsernamePasswordAuthenticationToken(username, password);
+        Authentication auth = this.authenticationManager.authenticate(usernamePassword);
+        return this.tokenService.generateToken((User) auth.getPrincipal());
     }
 
-    public User register(@Valid UserDTO data) {
-        UserDetails existingUser = this.repository.findByUsername(data.username());
-        if (Objects.nonNull(existingUser)) throw new EntityExistsException();
-
-        String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
-        User model = new User(new UserDTO(data.username(), encryptedPassword, data.role()));
-
-        return this.repository.save(model);
-    }
 }
