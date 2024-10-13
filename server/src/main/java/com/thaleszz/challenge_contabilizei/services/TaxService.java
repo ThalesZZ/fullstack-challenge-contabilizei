@@ -52,7 +52,8 @@ public class TaxService {
                                 dueDate,
                                 referenceDate,
                                 entry.getValue(),
-                                false))
+                                false,
+                                client))
                 .toList();
 
         return this.repository.saveAll(taxes);

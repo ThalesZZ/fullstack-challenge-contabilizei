@@ -2,6 +2,7 @@ package com.thaleszz.challenge_contabilizei.models.client;
 
 import com.thaleszz.challenge_contabilizei.models.invoice.InvoiceModel;
 import com.thaleszz.challenge_contabilizei.models.tax.TaxModel;
+import com.thaleszz.challenge_contabilizei.models.user.UserModel;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,8 +16,6 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "TB_CLIENT")
-//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-//@DiscriminatorColumn(name = "regime")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -37,6 +36,10 @@ public class ClientModel implements Serializable {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private TaxRegime regime;
+
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private UserModel user;
 
     @OneToMany(mappedBy = "client", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<InvoiceModel> invoices;
