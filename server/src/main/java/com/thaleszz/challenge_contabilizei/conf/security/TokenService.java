@@ -48,15 +48,12 @@ public class TokenService {
         }
     }
 
-
-
     private Algorithm algorithm() {
         return Algorithm.HMAC256(this.secretKey);
     }
 
     private Instant generateExpirationDate() {
         ZoneOffset tzOffset = ZoneOffset.of("-03:00");
-        ZoneOffset tzOffset_ = ZoneOffset.ofHours(-3);
         return LocalDateTime.now()
                 .plusHours(1)
                 .toInstant(tzOffset);
