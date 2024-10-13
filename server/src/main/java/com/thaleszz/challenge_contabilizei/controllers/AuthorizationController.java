@@ -3,7 +3,7 @@ package com.thaleszz.challenge_contabilizei.controllers;
 import com.thaleszz.challenge_contabilizei.dto.models.UserDTO;
 import com.thaleszz.challenge_contabilizei.dto.requests.AuthenticationDTO;
 import com.thaleszz.challenge_contabilizei.dto.responses.LoginResponseDTO;
-import com.thaleszz.challenge_contabilizei.services.AuthorizationService;
+import com.thaleszz.challenge_contabilizei.conf.security.AuthorizationService;
 import com.thaleszz.challenge_contabilizei.services.UserService;
 import jakarta.persistence.EntityExistsException;
 import lombok.AllArgsConstructor;
