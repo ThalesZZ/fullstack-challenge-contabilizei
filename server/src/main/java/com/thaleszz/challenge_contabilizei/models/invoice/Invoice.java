@@ -2,7 +2,7 @@ package com.thaleszz.challenge_contabilizei.models.invoice;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.thaleszz.challenge_contabilizei.dto.models.InvoiceDTO;
-import com.thaleszz.challenge_contabilizei.models.client.ClientModel;
+import com.thaleszz.challenge_contabilizei.models.client.Client;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,7 +21,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @NoArgsConstructor
-public class InvoiceModel implements Serializable {
+public class Invoice implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -49,9 +49,9 @@ public class InvoiceModel implements Serializable {
     @ManyToOne
     @JoinColumn(name = "client_id")
     @JsonIgnoreProperties("invoices")
-    private ClientModel client;
+    private Client client;
 
-    public InvoiceModel(InvoiceDTO data) {
+    public Invoice(InvoiceDTO data) {
         BeanUtils.copyProperties(data, this);
     }
 }

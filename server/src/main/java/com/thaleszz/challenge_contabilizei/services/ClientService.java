@@ -1,7 +1,7 @@
 package com.thaleszz.challenge_contabilizei.services;
 
 import com.thaleszz.challenge_contabilizei.dto.models.ClientDTO;
-import com.thaleszz.challenge_contabilizei.models.client.ClientModel;
+import com.thaleszz.challenge_contabilizei.models.client.Client;
 import com.thaleszz.challenge_contabilizei.repositories.ClientRepository;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -18,16 +18,16 @@ public class ClientService {
 
     private final ClientRepository repository;
 
-    public ClientModel create(@Valid ClientDTO data) {
-        ClientModel model = new ClientModel(data);
+    public Client create(@Valid ClientDTO data) {
+        Client model = new Client(data);
         return this.repository.save(model);
     }
 
-    public List<ClientModel> list() {
+    public List<Client> list() {
         return this.repository.findAll();
     }
 
-    public Optional<ClientModel> get(@NotNull UUID id) {
+    public Optional<Client> get(@NotNull UUID id) {
         return this.repository.findById(id);
     }
 

@@ -3,9 +3,9 @@ package com.thaleszz.challenge_contabilizei.services;
 import com.thaleszz.challenge_contabilizei.business.tax.calculator.TaxCalculationStrategy;
 import com.thaleszz.challenge_contabilizei.business.tax.due_date.TaxDueDateCalculator;
 import com.thaleszz.challenge_contabilizei.business.tax.due_date.TaxDueDateStrategy;
-import com.thaleszz.challenge_contabilizei.models.client.ClientModel;
-import com.thaleszz.challenge_contabilizei.models.invoice.InvoiceModel;
-import com.thaleszz.challenge_contabilizei.models.tax.TaxModel;
+import com.thaleszz.challenge_contabilizei.models.client.Client;
+import com.thaleszz.challenge_contabilizei.models.invoice.Invoice;
+import com.thaleszz.challenge_contabilizei.models.tax.Tax;
 import com.thaleszz.challenge_contabilizei.models.tax.TaxType;
 import com.thaleszz.challenge_contabilizei.repositories.TaxRepository;
 import jakarta.persistence.EntityExistsException;
@@ -27,10 +27,10 @@ public class TaxService {
     private final ClientService clientService;
     private final TaxRepository repository;
 
-    public List<TaxModel> requestCalculation(@NotNull UUID clientId, @NotNull YearMonth referenceDate) {
-        ClientModel client = this.clientService.get(clientId).orElseThrow(EntityExistsException::new);
+    public List<Tax> requestCalculation(@NotNull UUID clientId, @NotNull YearMonth referenceDate) {
+        Client client = this.clientService.get(clientId).orElseThrow(EntityExistsException::new);
 
-        List<InvoiceModel> filteredInvoices = client
+        List<Invoice> filteredInvoices = client
                 .getInvoices().stream()
                 .filter(invoice -> referenceDate.getMonth() == invoice.getEmissionDate().getMonth()
                         && referenceDate.getYear() == invoice.getEmissionDate().getYear())
@@ -42,11 +42,11 @@ public class TaxService {
         Map<TaxType, BigDecimal> taxesByType = taxValueCalculator.calculate(filteredInvoices);
         LocalDateTime dueDate = dueDateCalculator.calculate(referenceDate);
 
-        List<TaxModel> taxes = taxesByType
+        List<Tax> taxes = taxesByType
                 .entrySet()
                 .stream()
                 .map(entry ->
-                        new TaxModel(
+                        new Tax(
                                 null,
                                 entry.getKey(),
                                 dueDate,

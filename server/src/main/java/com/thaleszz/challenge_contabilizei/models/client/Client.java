@@ -1,9 +1,9 @@
 package com.thaleszz.challenge_contabilizei.models.client;
 
 import com.thaleszz.challenge_contabilizei.dto.models.ClientDTO;
-import com.thaleszz.challenge_contabilizei.models.invoice.InvoiceModel;
-import com.thaleszz.challenge_contabilizei.models.tax.TaxModel;
-import com.thaleszz.challenge_contabilizei.models.user.UserModel;
+import com.thaleszz.challenge_contabilizei.models.invoice.Invoice;
+import com.thaleszz.challenge_contabilizei.models.tax.Tax;
+import com.thaleszz.challenge_contabilizei.models.user.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,7 +20,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ClientModel implements Serializable {
+public class Client implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -40,15 +40,15 @@ public class ClientModel implements Serializable {
 
     @OneToOne
     @JoinColumn(name = "user_id")
-    private UserModel user;
+    private User user;
 
     @OneToMany(mappedBy = "client", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<InvoiceModel> invoices;
+    private List<Invoice> invoices;
 
     @OneToMany(mappedBy = "client", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<TaxModel> taxes;
+    private List<Tax> taxes;
 
-    public ClientModel(ClientDTO data) {
+    public Client(ClientDTO data) {
         BeanUtils.copyProperties(data, this);
     }
 }

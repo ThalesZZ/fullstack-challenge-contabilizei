@@ -1,7 +1,7 @@
 package com.thaleszz.challenge_contabilizei.models.user;
 
 import com.thaleszz.challenge_contabilizei.dto.models.UserDTO;
-import com.thaleszz.challenge_contabilizei.models.client.ClientModel;
+import com.thaleszz.challenge_contabilizei.models.client.Client;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,7 +23,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @NoArgsConstructor
-public class UserModel implements UserDetails, Serializable {
+public class User implements UserDetails, Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -42,9 +42,9 @@ public class UserModel implements UserDetails, Serializable {
     private UserRole role;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private ClientModel client;
+    private Client client;
 
-    public UserModel(UserDTO data) {
+    public User(UserDTO data) {
         BeanUtils.copyProperties(data, this);
     }
 

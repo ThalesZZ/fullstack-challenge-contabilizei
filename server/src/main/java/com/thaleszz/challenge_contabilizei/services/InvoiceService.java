@@ -1,8 +1,8 @@
 package com.thaleszz.challenge_contabilizei.services;
 
-import com.thaleszz.challenge_contabilizei.models.client.ClientModel;
 import com.thaleszz.challenge_contabilizei.dto.models.InvoiceDTO;
-import com.thaleszz.challenge_contabilizei.models.invoice.InvoiceModel;
+import com.thaleszz.challenge_contabilizei.models.client.Client;
+import com.thaleszz.challenge_contabilizei.models.invoice.Invoice;
 import com.thaleszz.challenge_contabilizei.repositories.InvoiceRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
@@ -20,26 +20,26 @@ public class InvoiceService {
     private final ClientService clientService;
     private final InvoiceRepository repository;
 
-    public InvoiceModel create(@Valid InvoiceDTO data) {
-        ClientModel client = this.clientService.get(data.clientId())
+    public Invoice create(@Valid InvoiceDTO data) {
+        Client client = this.clientService.get(data.clientId())
                 .orElseThrow(EntityNotFoundException::new);
 
-        InvoiceModel model = new InvoiceModel(data);
+        Invoice model = new Invoice(data);
         model.setClient(client);
 
         return this.repository.save(model);
     }
 
-    public List<InvoiceModel> list() {
+    public List<Invoice> list() {
         return this.repository.findAll();
     }
 
-    public Optional<InvoiceModel> get(@NotNull UUID id) {
+    public Optional<Invoice> get(@NotNull UUID id) {
         return this.repository.findById(id);
     }
 
     public void delete(@NotNull UUID id) {
-        InvoiceModel model = this.get(id)
+        Invoice model = this.get(id)
                 .orElseThrow(EntityNotFoundException::new);
         this.repository.delete(model);
     }

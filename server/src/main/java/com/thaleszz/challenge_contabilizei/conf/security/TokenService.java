@@ -4,7 +4,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.thaleszz.challenge_contabilizei.models.user.UserModel;
+import com.thaleszz.challenge_contabilizei.models.user.User;
 import jakarta.annotation.Nullable;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -20,7 +20,7 @@ public class TokenService {
     @Value("${api.security.token.secret}")
     private String secretKey;
 
-    public String generateToken(UserModel user) {
+    public String generateToken(User user) {
         try {
             Algorithm algorithm = this.algorithm();
             Instant expirationDate = this.generateExpirationDate();

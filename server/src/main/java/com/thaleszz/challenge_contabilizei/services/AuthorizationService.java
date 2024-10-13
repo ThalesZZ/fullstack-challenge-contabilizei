@@ -1,7 +1,7 @@
 package com.thaleszz.challenge_contabilizei.services;
 
 import com.thaleszz.challenge_contabilizei.dto.models.UserDTO;
-import com.thaleszz.challenge_contabilizei.models.user.UserModel;
+import com.thaleszz.challenge_contabilizei.models.user.User;
 import com.thaleszz.challenge_contabilizei.repositories.UserRepository;
 import jakarta.persistence.EntityExistsException;
 import jakarta.validation.Valid;
@@ -25,12 +25,12 @@ public class AuthorizationService implements UserDetailsService {
         return this.repository.findByUsername(username);
     }
 
-    public UserModel register(@Valid UserDTO data) {
+    public User register(@Valid UserDTO data) {
         UserDetails existingUser = this.repository.findByUsername(data.username());
         if (Objects.nonNull(existingUser)) throw new EntityExistsException();
 
         String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
-        UserModel model = new UserModel(new UserDTO(data.username(), encryptedPassword, data.role()));
+        User model = new User(new UserDTO(data.username(), encryptedPassword, data.role()));
 
         return this.repository.save(model);
     }

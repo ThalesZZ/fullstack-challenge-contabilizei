@@ -1,6 +1,5 @@
 package com.thaleszz.challenge_contabilizei.conf.security;
 
-import com.thaleszz.challenge_contabilizei.models.user.UserRole;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

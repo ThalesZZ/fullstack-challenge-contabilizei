@@ -1,8 +1,8 @@
 package com.thaleszz.challenge_contabilizei.business.tax.calculator;
 
-import com.thaleszz.challenge_contabilizei.models.invoice.Attachment;
 import com.thaleszz.challenge_contabilizei.dto.models.InvoiceDTO;
-import com.thaleszz.challenge_contabilizei.models.invoice.InvoiceModel;
+import com.thaleszz.challenge_contabilizei.models.invoice.Attachment;
+import com.thaleszz.challenge_contabilizei.models.invoice.Invoice;
 import com.thaleszz.challenge_contabilizei.models.tax.TaxType;
 import org.junit.jupiter.api.Test;
 
@@ -36,9 +36,9 @@ class LucroTaxCalculatorTest {
                 BigDecimal.valueOf(500d),
                 any());
 
-        InvoiceModel invoice1 = new InvoiceModel(data1);
-        InvoiceModel invoice2 = new InvoiceModel(data2);
-        List<InvoiceModel> invoices = Arrays.asList(invoice1, invoice2);
+        Invoice invoice1 = new Invoice(data1);
+        Invoice invoice2 = new Invoice(data2);
+        List<Invoice> invoices = Arrays.asList(invoice1, invoice2);
 
         Map<TaxType, BigDecimal> actual = calculator.calculate(invoices);
 

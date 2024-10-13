@@ -1,7 +1,7 @@
 package com.thaleszz.challenge_contabilizei.controllers;
 
 import com.thaleszz.challenge_contabilizei.dto.models.InvoiceDTO;
-import com.thaleszz.challenge_contabilizei.models.invoice.InvoiceModel;
+import com.thaleszz.challenge_contabilizei.models.invoice.Invoice;
 import com.thaleszz.challenge_contabilizei.services.InvoiceService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,14 +18,14 @@ public class InvoiceController {
     private final InvoiceService service;
 
     @GetMapping
-    public ResponseEntity<List<InvoiceModel>> list() {
-        List<InvoiceModel> clients = this.service.list();
+    public ResponseEntity<List<Invoice>> list() {
+        List<Invoice> clients = this.service.list();
         return ResponseEntity.ok(clients);
     }
 
     @PostMapping
-    public ResponseEntity<InvoiceModel> create(@RequestBody InvoiceDTO data) {
-        InvoiceModel client = this.service.create(data);
+    public ResponseEntity<Invoice> create(@RequestBody InvoiceDTO data) {
+        Invoice client = this.service.create(data);
         return ResponseEntity.ok(client);
     }
 
