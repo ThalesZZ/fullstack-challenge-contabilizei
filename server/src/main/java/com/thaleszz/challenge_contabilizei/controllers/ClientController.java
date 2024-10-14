@@ -1,5 +1,6 @@
 package com.thaleszz.challenge_contabilizei.controllers;
 
+import com.thaleszz.challenge_contabilizei.dto.models.ClientResponse;
 import com.thaleszz.challenge_contabilizei.dto.models.CreateClientRequest;
 import com.thaleszz.challenge_contabilizei.models.client.Client;
 import com.thaleszz.challenge_contabilizei.models.user.User;
@@ -23,18 +24,20 @@ public class ClientController {
     private final ClientService clientService;
 
     @GetMapping
-    public ResponseEntity<List<Client>> list() {
+    public ResponseEntity<List<ClientResponse>> list() {
         List<Client> clients = this.clientService.list();
-        return ResponseEntity.ok(clients);
+        List<ClientResponse> response = clients.stream().map(Client::toResponse).toList();
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping
-    public ResponseEntity<Client> create(@RequestBody @Valid CreateClientRequest data) {
+    public ResponseEntity<ClientResponse> create(@RequestBody @Valid CreateClientRequest data) {
         User user = this.userService.get(data.userId()).orElseThrow(EntityNotFoundException::new);
-        Client model = new Client(data);
+        Client model = Client.fromRequest(data);
         model.setUser(user);
         Client client = this.clientService.create(model);
-        return ResponseEntity.ok(client); // TODO create response record to omit sensitive info from client
+        ClientResponse response = client.toResponse();
+        return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/{id}")

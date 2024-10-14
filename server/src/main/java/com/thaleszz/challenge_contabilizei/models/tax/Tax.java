@@ -1,6 +1,5 @@
 package com.thaleszz.challenge_contabilizei.models.tax;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.thaleszz.challenge_contabilizei.models.client.Client;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -50,7 +49,6 @@ public class Tax implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "client_id")
-    @JsonIgnoreProperties("taxes")
     private Client client;
 
     protected static class YearMonthConverter implements AttributeConverter<YearMonth, String> {

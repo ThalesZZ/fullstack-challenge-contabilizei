@@ -35,7 +35,8 @@ public class AuthorizationController {
             User model = new User(data);
             this.userService.register(model);
             String token = this.authorizationService.login(data.username(), data.password());
-            return ResponseEntity.ok(new LoginResponse(token));
+            LoginResponse response = new LoginResponse(token);
+            return ResponseEntity.ok(response);
         } catch (EntityExistsException e) {
             return ResponseEntity.badRequest().build();
         }

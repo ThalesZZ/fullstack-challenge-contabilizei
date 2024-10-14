@@ -36,8 +36,8 @@ class LucroTaxCalculatorTest {
                 BigDecimal.valueOf(500d),
                 any());
 
-        Invoice invoice1 = new Invoice(data1);
-        Invoice invoice2 = new Invoice(data2);
+        Invoice invoice1 = Invoice.fromRequest(data1);
+        Invoice invoice2 = Invoice.fromRequest(data2);
         List<Invoice> invoices = Arrays.asList(invoice1, invoice2);
 
         Map<TaxType, BigDecimal> actual = calculator.calculate(invoices);

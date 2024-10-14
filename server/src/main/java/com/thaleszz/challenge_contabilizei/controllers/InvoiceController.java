@@ -1,6 +1,7 @@
 package com.thaleszz.challenge_contabilizei.controllers;
 
 import com.thaleszz.challenge_contabilizei.dto.models.CreateInvoiceRequest;
+import com.thaleszz.challenge_contabilizei.dto.models.InvoiceResponse;
 import com.thaleszz.challenge_contabilizei.models.client.Client;
 import com.thaleszz.challenge_contabilizei.models.invoice.Invoice;
 import com.thaleszz.challenge_contabilizei.services.ClientService;
@@ -23,17 +24,19 @@ public class InvoiceController {
     private final ClientService clientService;
 
     @GetMapping
-    public ResponseEntity<List<Invoice>> list() {
+    public ResponseEntity<List<InvoiceResponse>> list() {
         List<Invoice> clients = this.invoiceService.list();
-        return ResponseEntity.ok(clients);
+        List<InvoiceResponse> response = clients.stream().map(Invoice::toResponse).toList();
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping
-    public ResponseEntity<Invoice> create(@RequestBody @Valid CreateInvoiceRequest data) {
-        Invoice model = new Invoice(data);
+    public ResponseEntity<InvoiceResponse> create(@RequestBody @Valid CreateInvoiceRequest data) {
+        Invoice model = Invoice.fromRequest(data);
         Client client = this.clientService.get(model.getClient().getId()).orElseThrow(EntityNotFoundException::new);
         Invoice invoice = this.invoiceService.create(client, model);
-        return ResponseEntity.ok(invoice);
+        InvoiceResponse response = invoice.toResponse();
+        return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/{id}")
