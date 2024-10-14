@@ -9,6 +9,7 @@ import com.thaleszz.challenge_contabilizei.models.tax.Tax;
 import com.thaleszz.challenge_contabilizei.models.tax.TaxType;
 import com.thaleszz.challenge_contabilizei.repositories.TaxRepository;
 import com.thaleszz.challenge_contabilizei.services.ClientService;
+import com.thaleszz.challenge_contabilizei.services.PaymentService;
 import com.thaleszz.challenge_contabilizei.services.TaxService;
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
@@ -28,8 +29,9 @@ import java.util.UUID;
 @AllArgsConstructor
 public class TaxServiceImpl implements TaxService {
 
-    private final ClientService clientService;
     private final TaxRepository repository;
+    private final ClientService clientService;
+    private final PaymentService paymentService;
 
     @Override
     public List<Tax> requestCalculation(@NotNull UUID clientId, @NotNull YearMonth referenceDate) {
@@ -64,8 +66,8 @@ public class TaxServiceImpl implements TaxService {
     public List<Tax> pay(Collection<UUID> ids) {
         List<Tax> taxes = this.repository.findAllById(ids);
         if (taxes.size() != ids.size()) throw new EntityNotFoundException();
-        taxes = taxes.stream().peek(tax -> tax.setPaid(true)).toList();
-        return this.repository.saveAll(taxes);
+        List<Tax> paidTaxes = this.paymentService.pay(taxes);
+        return this.repository.saveAll(paidTaxes);
     }
 
     @Override
