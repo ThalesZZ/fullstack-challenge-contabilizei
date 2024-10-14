@@ -1,9 +1,9 @@
 package com.thaleszz.challenge_contabilizei.controllers;
 
 import com.thaleszz.challenge_contabilizei.conf.security.AuthorizationService;
-import com.thaleszz.challenge_contabilizei.dto.models.UserDTO;
-import com.thaleszz.challenge_contabilizei.dto.requests.AuthenticationDTO;
-import com.thaleszz.challenge_contabilizei.dto.responses.LoginResponseDTO;
+import com.thaleszz.challenge_contabilizei.dto.authentication.LoginRequest;
+import com.thaleszz.challenge_contabilizei.dto.authentication.LoginResponse;
+import com.thaleszz.challenge_contabilizei.dto.models.CreateUserRequest;
 import com.thaleszz.challenge_contabilizei.models.user.User;
 import com.thaleszz.challenge_contabilizei.services.UserService;
 import jakarta.persistence.EntityExistsException;
@@ -24,18 +24,18 @@ public class AuthorizationController {
     private final AuthorizationService authorizationService;
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponseDTO> login(@RequestBody @Valid AuthenticationDTO data) {
+    public ResponseEntity<LoginResponse> login(@RequestBody @Valid LoginRequest data) {
         String token = this.authorizationService.login(data.username(), data.password());
-        return ResponseEntity.ok(new LoginResponseDTO(token));
+        return ResponseEntity.ok(new LoginResponse(token));
     }
 
     @PostMapping("/register")
-    public ResponseEntity<LoginResponseDTO> register(@RequestBody @Valid UserDTO data) {
+    public ResponseEntity<LoginResponse> register(@RequestBody @Valid CreateUserRequest data) {
         try {
             User model = new User(data);
             this.userService.register(model);
             String token = this.authorizationService.login(data.username(), data.password());
-            return ResponseEntity.ok(new LoginResponseDTO(token));
+            return ResponseEntity.ok(new LoginResponse(token));
         } catch (EntityExistsException e) {
             return ResponseEntity.badRequest().build();
         }

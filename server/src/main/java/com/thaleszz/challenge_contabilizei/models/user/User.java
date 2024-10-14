@@ -1,7 +1,7 @@
 package com.thaleszz.challenge_contabilizei.models.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.thaleszz.challenge_contabilizei.dto.models.UserDTO;
+import com.thaleszz.challenge_contabilizei.dto.models.CreateUserRequest;
 import com.thaleszz.challenge_contabilizei.models.client.Client;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -46,7 +46,7 @@ public class User implements UserDetails, Serializable {
     @JsonIgnoreProperties("user")
     private Client client;
 
-    public User(UserDTO data) {
+    public User(CreateUserRequest data) {
         BeanUtils.copyProperties(data, this);
     }
 

@@ -1,6 +1,6 @@
 package com.thaleszz.challenge_contabilizei.business.tax.calculator;
 
-import com.thaleszz.challenge_contabilizei.dto.models.InvoiceDTO;
+import com.thaleszz.challenge_contabilizei.dto.models.CreateInvoiceRequest;
 import com.thaleszz.challenge_contabilizei.models.invoice.Attachment;
 import com.thaleszz.challenge_contabilizei.models.invoice.Invoice;
 import com.thaleszz.challenge_contabilizei.models.tax.TaxType;
@@ -22,13 +22,13 @@ class SimplesTaxCalculatorTest {
 
     @Test
     void calculate() {
-        InvoiceDTO data1 = new InvoiceDTO(
+        CreateInvoiceRequest data1 = new CreateInvoiceRequest(
                 anyString(),
                 Attachment.COMERCIO,
                 anyString(),
                 BigDecimal.valueOf(1000d),
                 any());
-        InvoiceDTO data2 = new InvoiceDTO(
+        CreateInvoiceRequest data2 = new CreateInvoiceRequest(
                 anyString(),
                 Attachment.SERVICOS,
                 anyString(),

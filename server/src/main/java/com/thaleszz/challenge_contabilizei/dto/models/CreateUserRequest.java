@@ -4,7 +4,7 @@ import com.thaleszz.challenge_contabilizei.models.user.UserRole;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-public record UserDTO(@NotBlank String username,
-                      @NotBlank String password,
-                      @NotNull UserRole role) {
+public record CreateUserRequest(@NotBlank String username,
+                                @NotBlank String password,
+                                @NotNull UserRole role) {
 }

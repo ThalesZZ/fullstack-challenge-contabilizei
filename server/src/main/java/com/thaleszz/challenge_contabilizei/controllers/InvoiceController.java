@@ -1,6 +1,6 @@
 package com.thaleszz.challenge_contabilizei.controllers;
 
-import com.thaleszz.challenge_contabilizei.dto.models.InvoiceDTO;
+import com.thaleszz.challenge_contabilizei.dto.models.CreateInvoiceRequest;
 import com.thaleszz.challenge_contabilizei.models.client.Client;
 import com.thaleszz.challenge_contabilizei.models.invoice.Invoice;
 import com.thaleszz.challenge_contabilizei.services.ClientService;
@@ -29,7 +29,7 @@ public class InvoiceController {
     }
 
     @PostMapping
-    public ResponseEntity<Invoice> create(@RequestBody @Valid InvoiceDTO data) {
+    public ResponseEntity<Invoice> create(@RequestBody @Valid CreateInvoiceRequest data) {
         Invoice model = new Invoice(data);
         Client client = this.clientService.get(model.getClient().getId()).orElseThrow(EntityNotFoundException::new);
         Invoice invoice = this.invoiceService.create(client, model);

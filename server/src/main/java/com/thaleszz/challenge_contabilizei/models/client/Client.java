@@ -1,6 +1,6 @@
 package com.thaleszz.challenge_contabilizei.models.client;
 
-import com.thaleszz.challenge_contabilizei.dto.models.ClientDTO;
+import com.thaleszz.challenge_contabilizei.dto.models.CreateClientRequest;
 import com.thaleszz.challenge_contabilizei.models.invoice.Invoice;
 import com.thaleszz.challenge_contabilizei.models.tax.Tax;
 import com.thaleszz.challenge_contabilizei.models.user.User;
@@ -49,7 +49,7 @@ public class Client implements Serializable {
     @OneToMany(mappedBy = "client", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Tax> taxes;
 
-    public Client(@Valid ClientDTO data) {
+    public Client(@Valid CreateClientRequest data) {
         BeanUtils.copyProperties(data, this);
     }
 }

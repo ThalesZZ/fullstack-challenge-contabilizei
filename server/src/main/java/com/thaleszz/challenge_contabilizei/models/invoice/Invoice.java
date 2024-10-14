@@ -1,7 +1,7 @@
 package com.thaleszz.challenge_contabilizei.models.invoice;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.thaleszz.challenge_contabilizei.dto.models.InvoiceDTO;
+import com.thaleszz.challenge_contabilizei.dto.models.CreateInvoiceRequest;
 import com.thaleszz.challenge_contabilizei.models.client.Client;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -51,7 +51,7 @@ public class Invoice implements Serializable {
     @JsonIgnoreProperties("invoices")
     private Client client;
 
-    public Invoice(InvoiceDTO data) {
+    public Invoice(CreateInvoiceRequest data) {
         BeanUtils.copyProperties(data, this);
     }
 }

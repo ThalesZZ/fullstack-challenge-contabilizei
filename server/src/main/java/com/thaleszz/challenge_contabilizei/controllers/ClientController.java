@@ -1,6 +1,6 @@
 package com.thaleszz.challenge_contabilizei.controllers;
 
-import com.thaleszz.challenge_contabilizei.dto.models.ClientDTO;
+import com.thaleszz.challenge_contabilizei.dto.models.CreateClientRequest;
 import com.thaleszz.challenge_contabilizei.models.client.Client;
 import com.thaleszz.challenge_contabilizei.models.user.User;
 import com.thaleszz.challenge_contabilizei.services.ClientService;
@@ -29,7 +29,7 @@ public class ClientController {
     }
 
     @PostMapping
-    public ResponseEntity<Client> create(@RequestBody @Valid ClientDTO data) {
+    public ResponseEntity<Client> create(@RequestBody @Valid CreateClientRequest data) {
         User user = this.userService.get(data.userId()).orElseThrow(EntityNotFoundException::new);
         Client model = new Client(data);
         model.setUser(user);

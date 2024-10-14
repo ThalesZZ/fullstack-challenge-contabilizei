@@ -6,8 +6,8 @@ import jakarta.validation.constraints.NotNull;
 
 import java.util.UUID;
 
-public record ClientDTO(@NotBlank String companyName,
-                        @NotBlank String cnpj,
-                        @NotNull TaxRegime regime,
-                        @NotNull UUID userId) {
+public record CreateClientRequest(@NotBlank String companyName,
+                                  @NotBlank String cnpj,
+                                  @NotNull TaxRegime regime,
+                                  @NotNull UUID userId) {
 }
