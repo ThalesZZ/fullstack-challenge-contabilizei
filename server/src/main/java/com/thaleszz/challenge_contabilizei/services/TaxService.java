@@ -9,6 +9,7 @@ import com.thaleszz.challenge_contabilizei.models.tax.Tax;
 import com.thaleszz.challenge_contabilizei.models.tax.TaxType;
 import com.thaleszz.challenge_contabilizei.repositories.TaxRepository;
 import jakarta.persistence.EntityExistsException;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.YearMonth;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -48,18 +50,21 @@ public class TaxService {
                 .map(entry -> {
                     TaxType taxType = entry.getKey();
                     BigDecimal value = entry.getValue();
-                    return new Tax(
-                            null,
-                            taxType,
-                            dueDate,
-                            referenceDate,
-                            value,
-                            false,
-                            client);
+                    return new Tax(taxType, dueDate, referenceDate, value, client);
                 })
                 .toList();
 
         return this.repository.saveAll(taxes);
     }
 
+    public List<Tax> pay(Collection<UUID> ids) {
+        List<Tax> taxes = this.repository.findAllById(ids);
+        if (taxes.size() != ids.size()) throw new EntityNotFoundException();
+        taxes = taxes.stream().peek(tax -> tax.setPaid(true)).toList();
+        return this.repository.saveAll(taxes);
+    }
+
+    public List<Tax> getClientTaxes(UUID clientId) {
+        return this.repository.findByClientId(clientId);
+    }
 }

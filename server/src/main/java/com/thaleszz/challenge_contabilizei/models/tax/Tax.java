@@ -1,8 +1,8 @@
 package com.thaleszz.challenge_contabilizei.models.tax;
 
+import com.thaleszz.challenge_contabilizei.dto.models.TaxResponse;
 import com.thaleszz.challenge_contabilizei.models.client.Client;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,7 +21,6 @@ import java.util.UUID;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class Tax implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
@@ -50,6 +49,28 @@ public class Tax implements Serializable {
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Client client;
+
+    public Tax(TaxType type,
+               LocalDateTime dueDate,
+               YearMonth referenceDate,
+               BigDecimal value,
+               Client client) {
+        this.type = type;
+        this.dueDate = dueDate;
+        this.referenceDate = referenceDate;
+        this.value = value;
+        this.client = client;
+        this.paid = false;
+    }
+
+    public TaxResponse toResponse() {
+        return new TaxResponse(
+                this.type,
+                this.dueDate,
+                this.referenceDate,
+                this.value,
+                this.paid);
+    }
 
     protected static class YearMonthConverter implements AttributeConverter<YearMonth, String> {
         private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("MM/yyyy");
