@@ -1,5 +1,6 @@
 package com.thaleszz.challenge_contabilizei.models.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.thaleszz.challenge_contabilizei.dto.models.UserDTO;
 import com.thaleszz.challenge_contabilizei.models.client.Client;
 import jakarta.persistence.*;
@@ -42,6 +43,7 @@ public class User implements UserDetails, Serializable {
     private UserRole role;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties("user")
     private Client client;
 
     public User(UserDTO data) {
