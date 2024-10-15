@@ -8,6 +8,7 @@ import java.util.UUID;
 
 public record CreateClientRequest(@NotBlank String companyName,
                                   @NotBlank String cnpj,
+                                  @NotBlank String email,
                                   @NotNull TaxRegime regime,
                                   @NotNull UUID userId) {
 }

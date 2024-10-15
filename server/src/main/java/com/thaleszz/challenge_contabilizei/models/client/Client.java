@@ -36,6 +36,9 @@ public class Client implements Serializable {
     @Column(unique = true, nullable = false)
     private String cnpj;
 
+    @Column(unique = true, nullable = false)
+    private String email;
+
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private TaxRegime regime;
@@ -60,6 +63,7 @@ public class Client implements Serializable {
         return new ClientResponse(
                 this.companyName,
                 this.cnpj,
+                this.email,
                 this.regime);
     }
 }
