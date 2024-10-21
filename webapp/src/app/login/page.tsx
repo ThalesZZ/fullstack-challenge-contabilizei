@@ -2,24 +2,27 @@
 
 import API from "@/api/auth";
 import type { LoginRequest } from "@/types/auth";
-import {
-    App,
-    Button,
-    Flex,
-    Form,
-    type FormProps,
-    Input
-} from "antd";
+import { App, Button, Flex, Form, type FormProps, Input } from "antd";
 import FormItem from "antd/es/form/FormItem";
 import Password from "antd/es/input/Password";
+import Cookies from "js-cookie";
 
 export default function LoginPage() {
 	const app = App.useApp();
 	const onSubmit: FormProps<LoginRequest>["onFinish"] = (data) => {
+		const tk = Cookies.get("token");
+		if (tk) {
+			app.notification.warning({
+				message: "You are already logged in. ",
+			});
+			return;
+		}
+
 		API.auth
 			.login(data)
 			.then((response) => {
 				const { token } = response;
+				Cookies.set("token", token);
 				app.notification.success({ message: "Successfuly logged in." });
 			})
 			.catch((err) => {

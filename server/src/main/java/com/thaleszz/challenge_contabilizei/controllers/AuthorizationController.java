@@ -26,7 +26,8 @@ public class AuthorizationController {
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@RequestBody @Valid LoginRequest data) {
         String token = this.authorizationService.login(data.username(), data.password());
-        return ResponseEntity.ok(new LoginResponse(token));
+        LoginResponse response = new LoginResponse(token);
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/register")

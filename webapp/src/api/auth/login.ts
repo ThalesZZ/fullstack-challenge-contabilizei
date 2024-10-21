@@ -3,7 +3,7 @@ import type { AxiosResponse } from "axios";
 import { api } from "../axios";
 
 export async function login(data: LoginRequest): Promise<LoginResponse> {
-	const response: AxiosResponse = await api
+	const response: AxiosResponse<LoginResponse> = await api
 		.post("/api/public/auth/login", data)
 		.catch((err) => err);
 
