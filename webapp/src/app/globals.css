@@ -7,7 +7,7 @@
 	--foreground: #ededed;
 }
 
-body {
+.ant-app {
 	color: var(--foreground);
 	background: var(--background);
 	font-family: Arial, Helvetica, sans-serif;
