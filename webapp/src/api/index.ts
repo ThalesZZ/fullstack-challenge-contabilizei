@@ -1,4 +1,4 @@
-import { login } from "./login";
+import { login } from "./auth/login";
 
 const API = {
 	auth: { login },
