@@ -1,5 +1,10 @@
-import LoginPage from "./login/page";
+import { cookies } from "next/headers";
+import LogoutButton from "./(components)/logout-btn";
 
 export default function Home() {
-	return <LoginPage />;
+	const isAuthenticated = cookies().has("session");
+
+	if (!isAuthenticated) return <div>redirecting to login...</div>;
+
+	return <LogoutButton />;
 }
