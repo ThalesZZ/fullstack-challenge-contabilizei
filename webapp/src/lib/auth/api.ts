@@ -19,6 +19,9 @@ export async function login(data: LoginRequest): Promise<void> {
 }
 
 // TODO improve
-export function logout(): void {
-	jsCookie.remove("session");
+export async function logout(): Promise<void> {
+	return new Promise((resolve, reject) => {
+		jsCookie.remove("session");
+		resolve();
+	});
 }

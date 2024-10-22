@@ -9,8 +9,9 @@ export default function LogoutButton() {
 	const router = useRouter();
 
 	const onLogout: ButtonProps["onClick"] = () => {
-		Auth.logout();
-		router.push("/login");
+		Auth.logout().then(() => {
+            router.push("/login");
+        });
 	};
 
 	return (
