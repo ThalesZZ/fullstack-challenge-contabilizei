@@ -1,6 +1,6 @@
 "use client";
 
-import API from "@/api";
+import Auth from "@/lib/auth";
 import type { LoginRequest } from "@/types/auth";
 import { App, Button, Form, Input, type FormProps } from "antd";
 import FormItem from "antd/es/form/FormItem";
@@ -12,7 +12,7 @@ export default function LoginPage() {
     const router = useRouter()
 
 	const onLogin: FormProps<LoginRequest>["onFinish"] = (data) => {
-		API.auth
+		Auth
 			.login(data)
 			.then(() => {
 				app.notification.success({ message: "Successfuly logged in." });

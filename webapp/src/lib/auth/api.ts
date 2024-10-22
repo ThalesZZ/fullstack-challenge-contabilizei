@@ -1,7 +1,7 @@
 import type { LoginRequest, LoginResponse } from "@/types/auth";
 import type { AxiosResponse } from "axios";
 import jsCookie from "js-cookie";
-import { api } from "../axios";
+import { api } from "../api/axios";
 
 export async function login(data: LoginRequest): Promise<void> {
 	const response: AxiosResponse<LoginResponse> = await api
