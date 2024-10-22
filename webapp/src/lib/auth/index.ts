@@ -1,6 +1,7 @@
-import { login, logout } from "./api";
+import { login, logout, register } from "./api";
 
 const Auth = {
+	register,
 	login,
 	logout,
 };
